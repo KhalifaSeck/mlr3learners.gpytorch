@@ -1,0 +1,92 @@
+# Benchmark Results: GPyTorch Learner
+
+## Overview
+
+This vignette presents comprehensive benchmark results for the
+mlr3learners.gpytorch package, comparing GPyTorch Gaussian Process
+regression against other standard algorithms.
+
+## Installation
+
+``` r
+remotes::install_github("KhalifaSeck/mlr3learners.gpytorch")
+```
+
+## Datasets
+
+Two regression datasets were used for evaluation:
+
+- **airquality**: 111 observations, predicting Ozone levels
+- **boston**: 506 observations, predicting median house values
+
+## Benchmark Setup
+
+5-fold cross-validation with the following learners:
+
+1.  GPyTorch (CPU)
+2.  GPyTorch (GPU)
+3.  K-Nearest Neighbors (auto-tuned k=1-30)
+4.  CV-Glmnet (penalized linear regression)
+5.  Featureless baseline
+
+## Results
+
+### Overall Performance (Mean MSE)
+
+| Dataset    | GPyTorch (GPU) | GPyTorch (CPU) | KNN    | CV-Glmnet | Featureless |
+|------------|----------------|----------------|--------|-----------|-------------|
+| airquality | 398.58         | 398.58         | 388.28 | 575.86    | 1107.45     |
+| boston     | 9.68           | 9.68           | 18.02  | 27.79     | 84.70       |
+
+### Rankings
+
+**airquality dataset:**
+
+1.  KNN: 388.28 MSE
+2.  GPyTorch: 398.58 MSE (64% improvement over baseline)
+3.  CV-Glmnet: 575.86 MSE
+4.  Featureless: 1107.45 MSE
+
+**boston dataset:**
+
+1.  GPyTorch: 9.68 MSE (89% improvement over baseline)
+2.  KNN: 18.02 MSE
+3.  CV-Glmnet: 27.79 MSE
+4.  Featureless: 84.70 MSE
+
+## GPU vs CPU Performance
+
+Tested on NVIDIA GeForce RTX 3050 Laptop GPU.
+
+### Training Time (30 iterations)
+
+**airquality (111 observations):**
+
+- CPU: 0.19-0.24 seconds
+- GPU: 0.31-0.48 seconds
+- Result: CPU 2x faster (GPU overhead dominates)
+
+**boston (506 observations):**
+
+- CPU: 0.34-0.37 seconds
+- GPU: 0.28-0.33 seconds
+- Result: GPU 1.3x faster
+
+### Analysis
+
+GPU overhead (memory transfer) is approximately 0.2 seconds. For small
+datasets, this overhead exceeds computational gains. For larger datasets
+(500+ observations), GPU acceleration becomes beneficial.
+
+## Conclusion
+
+GPyTorch demonstrates:
+
+- Excellent learning capability (64-89% improvement over baseline)
+- Competitive performance (rank 1 on boston, rank 2 on airquality)
+- GPU acceleration beneficial for datasets with 500+ observations
+- Identical predictions on CPU and GPU (validates implementation)
+
+See the main
+[README](https://github.com/KhalifaSeck/mlr3learners.gpytorch) for
+complete details.
