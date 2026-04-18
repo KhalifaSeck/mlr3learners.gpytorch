@@ -1,7 +1,9 @@
 # mlr3learners.gpytorch
 
 [![R-CMD-check](https://github.com/KhalifaSeck/mlr3learners.gpytorch/actions/workflows/check.yaml/badge.svg)](https://github.com/KhalifaSeck/mlr3learners.gpytorch/actions/workflows/check.yaml)
+[![pkgdown](https://github.com/KhalifaSeck/mlr3learners.gpytorch/actions/workflows/pkgdown.yaml/badge.svg)](https://github.com/KhalifaSeck/mlr3learners.gpytorch/actions/workflows/pkgdown.yaml)
 [![Codecov test coverage](https://codecov.io/gh/KhalifaSeck/mlr3learners.gpytorch/branch/master/graph/badge.svg)](https://app.codecov.io/gh/KhalifaSeck/mlr3learners.gpytorch?branch=master)
+[![Netlify Status](https://api.netlify.com/api/v1/badges/VOTRE-SITE-ID/deploy-status)](https://mlr3learners-gpytorch.netlify.app)
 
 This R package provides an interface to the GPyTorch package for the mlr3 ecosystem. It implements Gaussian Process regression with GPU acceleration support and automatic feature normalization.
 
