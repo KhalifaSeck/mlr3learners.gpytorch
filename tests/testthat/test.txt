@@ -1,0 +1,288 @@
+INFO  [13:40:53.427] [mlr3] Applying learner 'regr.kknn' on task 'boston' (iter 1/3)
+INFO  [13:40:53.451] [mlr3] Applying learner 'regr.kknn' on task 'boston' (iter 2/3)
+INFO  [13:40:53.478] [mlr3] Applying learner 'regr.kknn' on task 'boston' (iter 3/3)
+INFO  [13:40:53.500] [mlr3] Finished benchmark
+INFO  [13:40:53.539] [bbotk] Result of batch 1:
+INFO  [13:40:53.541] [bbotk]  k regr.mse warnings errors runtime_learners
+INFO  [13:40:53.541] [bbotk]  4 18.57028        0      0             0.03
+INFO  [13:40:53.541] [bbotk]                                 uhash
+INFO  [13:40:53.541] [bbotk]  b9309154-8fe4-476e-8bbe-fa0a281f2127
+INFO  [13:40:53.547] [bbotk] Evaluating 1 configuration(s)
+INFO  [13:40:53.564] [mlr3] Running benchmark with 3 resampling iterations
+INFO  [13:40:53.577] [mlr3] Applying learner 'regr.kknn' on task 'boston' (iter 1/3)
+INFO  [13:40:53.603] [mlr3] Applying learner 'regr.kknn' on task 'boston' (iter 2/3)
+INFO  [13:40:53.627] [mlr3] Applying learner 'regr.kknn' on task 'boston' (iter 3/3)
+INFO  [13:40:53.650] [mlr3] Finished benchmark
+INFO  [13:40:53.693] [bbotk] Result of batch 2:
+INFO  [13:40:53.696] [bbotk]   k regr.mse warnings errors runtime_learners
+INFO  [13:40:53.696] [bbotk]  10 20.53063        0      0             0.04
+INFO  [13:40:53.696] [bbotk]                                 uhash
+INFO  [13:40:53.696] [bbotk]  779b47bd-ea39-4670-aba6-cf8ee19c16d1
+INFO  [13:40:53.701] [bbotk] Evaluating 1 configuration(s)
+INFO  [13:40:53.711] [mlr3] Running benchmark with 3 resampling iterations
+INFO  [13:40:53.722] [mlr3] Applying learner 'regr.kknn' on task 'boston' (iter 1/3)
+INFO  [13:40:53.746] [mlr3] Applying learner 'regr.kknn' on task 'boston' (iter 2/3)
+INFO  [13:40:53.769] [mlr3] Applying learner 'regr.kknn' on task 'boston' (iter 3/3)
+INFO  [13:40:53.794] [mlr3] Finished benchmark
+INFO  [13:40:53.833] [bbotk] Result of batch 3:
+INFO  [13:40:53.840] [bbotk]  k regr.mse warnings errors runtime_learners
+INFO  [13:40:53.840] [bbotk]  1 25.26763        0      0             0.03
+INFO  [13:40:53.840] [bbotk]                                 uhash
+INFO  [13:40:53.840] [bbotk]  dc5e1cb8-0d70-4490-85e4-5863def0b5ec
+INFO  [13:40:53.849] [bbotk] Evaluating 1 configuration(s)
+INFO  [13:40:53.860] [mlr3] Running benchmark with 3 resampling iterations
+INFO  [13:40:53.871] [mlr3] Applying learner 'regr.kknn' on task 'boston' (iter 1/3)
+INFO  [13:40:53.896] [mlr3] Applying learner 'regr.kknn' on task 'boston' (iter 2/3)
+INFO  [13:40:53.921] [mlr3] Applying learner 'regr.kknn' on task 'boston' (iter 3/3)
+INFO  [13:40:53.944] [mlr3] Finished benchmark
+INFO  [13:40:53.987] [bbotk] Result of batch 4:
+INFO  [13:40:53.990] [bbotk]   k regr.mse warnings errors runtime_learners
+INFO  [13:40:53.990] [bbotk]  17 22.77022        0      0             0.04
+INFO  [13:40:53.990] [bbotk]                                 uhash
+INFO  [13:40:53.990] [bbotk]  16e98a13-2eb6-4305-a312-35b9862e8870
+INFO  [13:40:53.994] [bbotk] Evaluating 1 configuration(s)
+INFO  [13:40:54.002] [mlr3] Running benchmark with 3 resampling iterations
+INFO  [13:40:54.012] [mlr3] Applying learner 'regr.kknn' on task 'boston' (iter 1/3)
+INFO  [13:40:54.037] [mlr3] Applying learner 'regr.kknn' on task 'boston' (iter 2/3)
+INFO  [13:40:54.063] [mlr3] Applying learner 'regr.kknn' on task 'boston' (iter 3/3)
+INFO  [13:40:54.087] [mlr3] Finished benchmark
+INFO  [13:40:54.135] [bbotk] Result of batch 5:
+INFO  [13:40:54.138] [bbotk]   k regr.mse warnings errors runtime_learners
+INFO  [13:40:54.138] [bbotk]  24 24.74156        0      0             0.02
+INFO  [13:40:54.138] [bbotk]                                 uhash
+INFO  [13:40:54.138] [bbotk]  c7f2aeb7-cd3d-4551-b78c-1deed233f1b6
+INFO  [13:40:54.143] [bbotk] Evaluating 1 configuration(s)
+INFO  [13:40:54.154] [mlr3] Running benchmark with 3 resampling iterations
+INFO  [13:40:54.163] [mlr3] Applying learner 'regr.kknn' on task 'boston' (iter 1/3)
+INFO  [13:40:54.188] [mlr3] Applying learner 'regr.kknn' on task 'boston' (iter 2/3)
+INFO  [13:40:54.214] [mlr3] Applying learner 'regr.kknn' on task 'boston' (iter 3/3)
+INFO  [13:40:54.237] [mlr3] Finished benchmark
+INFO  [13:40:54.299] [bbotk] Result of batch 6:
+INFO  [13:40:54.302] [bbotk]   k regr.mse warnings errors runtime_learners
+INFO  [13:40:54.302] [bbotk]  27 25.61611        0      0             0.02
+INFO  [13:40:54.302] [bbotk]                                 uhash
+INFO  [13:40:54.302] [bbotk]  07877b84-5fde-420a-9793-843fd24a22ac
+INFO  [13:40:54.307] [bbotk] Evaluating 1 configuration(s)
+INFO  [13:40:54.316] [mlr3] Running benchmark with 3 resampling iterations
+INFO  [13:40:54.326] [mlr3] Applying learner 'regr.kknn' on task 'boston' (iter 1/3)
+INFO  [13:40:54.350] [mlr3] Applying learner 'regr.kknn' on task 'boston' (iter 2/3)
+INFO  [13:40:54.375] [mlr3] Applying learner 'regr.kknn' on task 'boston' (iter 3/3)
+INFO  [13:40:54.400] [mlr3] Finished benchmark
+INFO  [13:40:54.449] [bbotk] Result of batch 7:
+INFO  [13:40:54.452] [bbotk]   k regr.mse warnings errors runtime_learners
+INFO  [13:40:54.452] [bbotk]  14 21.91429        0      0             0.03
+INFO  [13:40:54.452] [bbotk]                                 uhash
+INFO  [13:40:54.452] [bbotk]  199d9bec-8f42-4918-9a0b-079f14d093d0
+INFO  [13:40:54.457] [bbotk] Evaluating 1 configuration(s)
+INFO  [13:40:54.467] [mlr3] Running benchmark with 3 resampling iterations
+INFO  [13:40:54.477] [mlr3] Applying learner 'regr.kknn' on task 'boston' (iter 1/3)
+INFO  [13:40:54.502] [mlr3] Applying learner 'regr.kknn' on task 'boston' (iter 2/3)
+INFO  [13:40:54.527] [mlr3] Applying learner 'regr.kknn' on task 'boston' (iter 3/3)
+INFO  [13:40:54.550] [mlr3] Finished benchmark
+INFO  [13:40:54.593] [bbotk] Result of batch 8:
+INFO  [13:40:54.596] [bbotk]  k regr.mse warnings errors runtime_learners
+INFO  [13:40:54.596] [bbotk]  7 19.53113        0      0             0.04
+INFO  [13:40:54.596] [bbotk]                                 uhash
+INFO  [13:40:54.596] [bbotk]  67b63d14-30f7-46b2-b181-b90844585666
+INFO  [13:40:54.601] [bbotk] Evaluating 1 configuration(s)
+INFO  [13:40:54.609] [mlr3] Running benchmark with 3 resampling iterations
+INFO  [13:40:54.619] [mlr3] Applying learner 'regr.kknn' on task 'boston' (iter 1/3)
+INFO  [13:40:54.646] [mlr3] Applying learner 'regr.kknn' on task 'boston' (iter 2/3)
+INFO  [13:40:54.671] [mlr3] Applying learner 'regr.kknn' on task 'boston' (iter 3/3)
+INFO  [13:40:54.695] [mlr3] Finished benchmark
+INFO  [13:40:54.742] [bbotk] Result of batch 9:
+INFO  [13:40:54.745] [bbotk]   k regr.mse warnings errors runtime_learners
+INFO  [13:40:54.745] [bbotk]  30 26.47237        0      0             0.04
+INFO  [13:40:54.745] [bbotk]                                 uhash
+INFO  [13:40:54.745] [bbotk]  fd08abe1-0f81-408f-b021-5c41f10f4eda
+INFO  [13:40:54.750] [bbotk] Evaluating 1 configuration(s)
+INFO  [13:40:54.760] [mlr3] Running benchmark with 3 resampling iterations
+INFO  [13:40:54.771] [mlr3] Applying learner 'regr.kknn' on task 'boston' (iter 1/3)
+INFO  [13:40:54.795] [mlr3] Applying learner 'regr.kknn' on task 'boston' (iter 2/3)
+INFO  [13:40:54.821] [mlr3] Applying learner 'regr.kknn' on task 'boston' (iter 3/3)
+INFO  [13:40:54.843] [mlr3] Finished benchmark
+INFO  [13:40:54.887] [bbotk] Result of batch 10:
+INFO  [13:40:54.890] [bbotk]   k regr.mse warnings errors runtime_learners
+INFO  [13:40:54.890] [bbotk]  20 23.59471        0      0             0.04
+INFO  [13:40:54.890] [bbotk]                                 uhash
+INFO  [13:40:54.890] [bbotk]  792fbcdf-22a8-4dd6-b806-191edbf1c0f2
+INFO  [13:40:54.912] [bbotk] Finished optimizing after 10 evaluation(s)
+INFO  [13:40:54.915] [bbotk] Result:
+INFO  [13:40:54.918] [bbotk]      k learner_param_vals  x_domain regr.mse
+INFO  [13:40:54.918] [bbotk]  <int>             <list>    <list>    <num>
+INFO  [13:40:54.918] [bbotk]      4          <list[1]> <list[1]> 18.57028
+INFO  [13:40:54.951] [mlr3] Applying learner 'knn' on task 'boston' (iter 5/5)
+INFO  [13:40:55.057] [bbotk] Starting to optimize 1 parameter(s) with '<OptimizerBatchGridSearch>' and '<TerminatorNone>'
+INFO  [13:40:55.068] [bbotk] Evaluating 1 configuration(s)
+INFO  [13:40:55.077] [mlr3] Running benchmark with 3 resampling iterations
+INFO  [13:40:55.087] [mlr3] Applying learner 'regr.kknn' on task 'boston' (iter 1/3)
+INFO  [13:40:55.111] [mlr3] Applying learner 'regr.kknn' on task 'boston' (iter 2/3)
+INFO  [13:40:55.136] [mlr3] Applying learner 'regr.kknn' on task 'boston' (iter 3/3)
+INFO  [13:40:55.160] [mlr3] Finished benchmark
+INFO  [13:40:55.203] [bbotk] Result of batch 1:
+INFO  [13:40:55.206] [bbotk]   k regr.mse warnings errors runtime_learners
+INFO  [13:40:55.206] [bbotk]  20 22.89071        0      0             0.02
+INFO  [13:40:55.206] [bbotk]                                 uhash
+INFO  [13:40:55.206] [bbotk]  b45a572b-bf1a-4bbc-ac7d-d558aa37226a
+INFO  [13:40:55.211] [bbotk] Evaluating 1 configuration(s)
+INFO  [13:40:55.219] [mlr3] Running benchmark with 3 resampling iterations
+INFO  [13:40:55.229] [mlr3] Applying learner 'regr.kknn' on task 'boston' (iter 1/3)
+INFO  [13:40:55.264] [mlr3] Applying learner 'regr.kknn' on task 'boston' (iter 2/3)
+INFO  [13:40:55.292] [mlr3] Applying learner 'regr.kknn' on task 'boston' (iter 3/3)
+INFO  [13:40:55.317] [mlr3] Finished benchmark
+INFO  [13:40:55.355] [bbotk] Result of batch 2:
+INFO  [13:40:55.358] [bbotk]   k regr.mse warnings errors runtime_learners
+INFO  [13:40:55.358] [bbotk]  27 24.62992        0      0             0.04
+INFO  [13:40:55.358] [bbotk]                                 uhash
+INFO  [13:40:55.358] [bbotk]  eef3f90a-6374-44d3-aa61-f68493edca1c
+INFO  [13:40:55.364] [bbotk] Evaluating 1 configuration(s)
+INFO  [13:40:55.374] [mlr3] Running benchmark with 3 resampling iterations
+INFO  [13:40:55.384] [mlr3] Applying learner 'regr.kknn' on task 'boston' (iter 1/3)
+INFO  [13:40:55.408] [mlr3] Applying learner 'regr.kknn' on task 'boston' (iter 2/3)
+INFO  [13:40:55.435] [mlr3] Applying learner 'regr.kknn' on task 'boston' (iter 3/3)
+INFO  [13:40:55.458] [mlr3] Finished benchmark
+INFO  [13:40:55.501] [bbotk] Result of batch 3:
+INFO  [13:40:55.504] [bbotk]  k regr.mse warnings errors runtime_learners
+INFO  [13:40:55.504] [bbotk]  7 20.34284        0      0             0.03
+INFO  [13:40:55.504] [bbotk]                                 uhash
+INFO  [13:40:55.504] [bbotk]  523da0e1-5fcd-4cdc-ab18-55abbb2c9d12
+INFO  [13:40:55.509] [bbotk] Evaluating 1 configuration(s)
+INFO  [13:40:55.517] [mlr3] Running benchmark with 3 resampling iterations
+INFO  [13:40:55.536] [mlr3] Applying learner 'regr.kknn' on task 'boston' (iter 1/3)
+INFO  [13:40:55.561] [mlr3] Applying learner 'regr.kknn' on task 'boston' (iter 2/3)
+INFO  [13:40:55.586] [mlr3] Applying learner 'regr.kknn' on task 'boston' (iter 3/3)
+INFO  [13:40:55.608] [mlr3] Finished benchmark
+INFO  [13:40:55.646] [bbotk] Result of batch 4:
+INFO  [13:40:55.649] [bbotk]   k regr.mse warnings errors runtime_learners
+INFO  [13:40:55.649] [bbotk]  30 25.35417        0      0             0.03
+INFO  [13:40:55.649] [bbotk]                                 uhash
+INFO  [13:40:55.649] [bbotk]  0ba31f21-ed72-4884-8f3e-87100fb8b903
+INFO  [13:40:55.654] [bbotk] Evaluating 1 configuration(s)
+INFO  [13:40:55.665] [mlr3] Running benchmark with 3 resampling iterations
+INFO  [13:40:55.675] [mlr3] Applying learner 'regr.kknn' on task 'boston' (iter 1/3)
+INFO  [13:40:55.699] [mlr3] Applying learner 'regr.kknn' on task 'boston' (iter 2/3)
+INFO  [13:40:55.724] [mlr3] Applying learner 'regr.kknn' on task 'boston' (iter 3/3)
+INFO  [13:40:55.748] [mlr3] Finished benchmark
+INFO  [13:40:55.788] [bbotk] Result of batch 5:
+INFO  [13:40:55.796] [bbotk]  k regr.mse warnings errors runtime_learners
+INFO  [13:40:55.796] [bbotk]  1 29.59775        0      0             0.02
+INFO  [13:40:55.796] [bbotk]                                 uhash
+INFO  [13:40:55.796] [bbotk]  64c9106d-2a4b-4c4b-9813-dfcc585269ce
+INFO  [13:40:55.804] [bbotk] Evaluating 1 configuration(s)
+INFO  [13:40:55.815] [mlr3] Running benchmark with 3 resampling iterations
+INFO  [13:40:55.825] [mlr3] Applying learner 'regr.kknn' on task 'boston' (iter 1/3)
+INFO  [13:40:55.852] [mlr3] Applying learner 'regr.kknn' on task 'boston' (iter 2/3)
+INFO  [13:40:55.877] [mlr3] Applying learner 'regr.kknn' on task 'boston' (iter 3/3)
+INFO  [13:40:55.900] [mlr3] Finished benchmark
+INFO  [13:40:55.943] [bbotk] Result of batch 6:
+INFO  [13:40:55.946] [bbotk]   k regr.mse warnings errors runtime_learners
+INFO  [13:40:55.946] [bbotk]  24 23.89833        0      0             0.04
+INFO  [13:40:55.946] [bbotk]                                 uhash
+INFO  [13:40:55.946] [bbotk]  f63cad23-3748-42cb-94a4-5258dad2ca82
+INFO  [13:40:55.950] [bbotk] Evaluating 1 configuration(s)
+INFO  [13:40:55.960] [mlr3] Running benchmark with 3 resampling iterations
+INFO  [13:40:55.970] [mlr3] Applying learner 'regr.kknn' on task 'boston' (iter 1/3)
+INFO  [13:40:55.996] [mlr3] Applying learner 'regr.kknn' on task 'boston' (iter 2/3)
+INFO  [13:40:56.022] [mlr3] Applying learner 'regr.kknn' on task 'boston' (iter 3/3)
+INFO  [13:40:56.045] [mlr3] Finished benchmark
+INFO  [13:40:56.095] [bbotk] Result of batch 7:
+INFO  [13:40:56.098] [bbotk]   k regr.mse warnings errors runtime_learners
+INFO  [13:40:56.098] [bbotk]  17 22.16246        0      0             0.03
+INFO  [13:40:56.098] [bbotk]                                 uhash
+INFO  [13:40:56.098] [bbotk]  d673f2c0-cd0b-4631-8f00-dc2a717c0137
+INFO  [13:40:56.104] [bbotk] Evaluating 1 configuration(s)
+INFO  [13:40:56.114] [mlr3] Running benchmark with 3 resampling iterations
+INFO  [13:40:56.124] [mlr3] Applying learner 'regr.kknn' on task 'boston' (iter 1/3)
+INFO  [13:40:56.150] [mlr3] Applying learner 'regr.kknn' on task 'boston' (iter 2/3)
+INFO  [13:40:56.175] [mlr3] Applying learner 'regr.kknn' on task 'boston' (iter 3/3)
+INFO  [13:40:56.197] [mlr3] Finished benchmark
+INFO  [13:40:56.238] [bbotk] Result of batch 8:
+INFO  [13:40:56.242] [bbotk]  k regr.mse warnings errors runtime_learners
+INFO  [13:40:56.242] [bbotk]  4 20.83742        0      0             0.03
+INFO  [13:40:56.242] [bbotk]                                 uhash
+INFO  [13:40:56.242] [bbotk]  ccf37a33-7623-4873-aefa-2c0f35fd8220
+INFO  [13:40:56.247] [bbotk] Evaluating 1 configuration(s)
+INFO  [13:40:56.257] [mlr3] Running benchmark with 3 resampling iterations
+INFO  [13:40:56.267] [mlr3] Applying learner 'regr.kknn' on task 'boston' (iter 1/3)
+INFO  [13:40:56.293] [mlr3] Applying learner 'regr.kknn' on task 'boston' (iter 2/3)
+INFO  [13:40:56.319] [mlr3] Applying learner 'regr.kknn' on task 'boston' (iter 3/3)
+INFO  [13:40:56.341] [mlr3] Finished benchmark
+INFO  [13:40:56.395] [bbotk] Result of batch 9:
+INFO  [13:40:56.398] [bbotk]   k regr.mse warnings errors runtime_learners
+INFO  [13:40:56.398] [bbotk]  14 21.47532        0      0             0.03
+INFO  [13:40:56.398] [bbotk]                                 uhash
+INFO  [13:40:56.398] [bbotk]  c54598cf-b252-42a1-ad12-38c17bde63e9
+INFO  [13:40:56.402] [bbotk] Evaluating 1 configuration(s)
+INFO  [13:40:56.412] [mlr3] Running benchmark with 3 resampling iterations
+INFO  [13:40:56.422] [mlr3] Applying learner 'regr.kknn' on task 'boston' (iter 1/3)
+INFO  [13:40:56.448] [mlr3] Applying learner 'regr.kknn' on task 'boston' (iter 2/3)
+INFO  [13:40:56.472] [mlr3] Applying learner 'regr.kknn' on task 'boston' (iter 3/3)
+INFO  [13:40:56.494] [mlr3] Finished benchmark
+INFO  [13:40:56.534] [bbotk] Result of batch 10:
+INFO  [13:40:56.537] [bbotk]   k regr.mse warnings errors runtime_learners
+INFO  [13:40:56.537] [bbotk]  10 20.73997        0      0             0.04
+INFO  [13:40:56.537] [bbotk]                                 uhash
+INFO  [13:40:56.537] [bbotk]  60de8b06-5321-4f65-a141-480ddec2212e
+INFO  [13:40:56.564] [bbotk] Finished optimizing after 10 evaluation(s)
+INFO  [13:40:56.567] [bbotk] Result:
+INFO  [13:40:56.570] [bbotk]      k learner_param_vals  x_domain regr.mse
+INFO  [13:40:56.570] [bbotk]  <int>             <list>    <list>    <num>
+INFO  [13:40:56.570] [bbotk]      7          <list[1]> <list[1]> 20.34284
+INFO  [13:40:56.605] [mlr3] Finished benchmark
+      task_id  learner_id    mean_mse
+       <char>      <char>       <num>
+1: airquality    gpytorch  398.582283
+2: airquality         knn  404.842114
+3: airquality      glmnet  563.163714
+4: airquality featureless 1107.447652
+5:     boston    gpytorch    9.684815
+6:     boston         knn   18.288200
+7:     boston      glmnet   28.288096
+8:     boston featureless   84.697421
+Dataset: airquality
+  GPyTorch MSE: 398.5823
+  Featureless MSE: 1107.4477
+  Improvement: 64.01%
+  YES, GPyTorch learns non-trivial patterns
+
+Dataset: boston
+  GPyTorch MSE: 9.6848
+  Featureless MSE: 84.6974
+  Improvement: 88.57%
+  YES, GPyTorch learns non-trivial patterns
+
+Dataset: airquality
+  1. gpytorch        MSE = 398.5823
+  2. knn             MSE = 404.8421
+  3. glmnet          MSE = 563.1637
+  4. featureless     MSE = 1107.4477
+  GPyTorch ranks #1 out of 4
+
+Dataset: boston
+  1. gpytorch        MSE = 9.6848
+  2. knn             MSE = 18.2882
+  3. glmnet          MSE = 28.2881
+  4. featureless     MSE = 84.6974
+  GPyTorch ranks #1 out of 4
+
+C:\Users\lifas\ANACON~1\envs\gpytorch\lib\site-packages\gpytorch\models\exact_gp.py:299: GPInputWarning: The input matches the stored training data. Did you forget to call model.train()?
+  warnings.warn(
+   Configuration MSE_Train MSE_Test Improvement
+          <char>     <num>    <num>      <char>
+1: Default (RBF)  182.4311 376.5575       53.2%
+2:        Matern  128.5991 366.9847       54.4%
+3:   RBF lr=0.05  163.6828 377.9711       53.1%
+4:      Baseline 1229.2626 805.0773           -
+   Configuration MSE_Train MSE_Test Improvement
+          <char>     <num>    <num>      <char>
+1: Default (RBF)    3.5256   9.9805       86.7%
+2:        Matern    1.6828   9.9260       86.8%
+3:   RBF lr=0.05    3.5578   9.9208       86.8%
+4:      Baseline   88.4499  75.2778           -
+Warning messages:
+1: package 'reticulate' was built under R version 4.5.3
+2: package 'mlr3tuning' was built under R version 4.5.3
+3: package 'paradox' was built under R version 4.5.3
+4: package 'data.table' was built under R version 4.5.3
+5: package 'testthat' was built under R version 4.5.3
+>
