@@ -1,0 +1,24 @@
+Package: mlr3learners.gpytorch
+Title: GPyTorch Learner for mlr3
+Version: 0.1.0
+Authors@R: 
+    person("Khalifa", "Seck", email = "seckhalifaa@gmail.com", 
+           role = c("aut", "cre"))
+Description: Gaussian Process regression using GPyTorch via reticulate.
+License: MIT + file LICENSE
+Depends:
+    R (>= 3.6.0),
+    mlr3 (>= 0.20.0)
+Imports:
+    R6,
+    reticulate,
+    checkmate,
+    mlr3misc,
+    paradox
+Suggests:
+    testthat (>= 3.0.0)
+SystemRequirements: Python (>= 3.7), torch, gpytorch
+Encoding: UTF-8
+RoxygenNote: 7.3.3
+Roxygen: list(markdown = TRUE)
+
