@@ -1,3 +1,16 @@
+
 ^mlr3learners\.gpytorch\.Rproj$
 ^\.Rproj\.user$
 ^LICENSE\.md$
+^\.github$
+^docs$
+^_pkgdown\.yml$
+^pkgdown$
+^benchmark\.R$
+^benchmark_.*\.csv$
+^benchmark_.*\.png$
+^validation_.*\.csv$
+^benchmark_cpu_gpu\.R$
+^\.git$
+^\.gitignore$
+^README\.md$

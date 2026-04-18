@@ -4,7 +4,10 @@ Version: 0.1.0
 Authors@R: 
     person("Khalifa", "Seck", email = "seckhalifaa@gmail.com", 
            role = c("aut", "cre"))
-Description: Gaussian Process regression using GPyTorch via reticulate.
+Description: Provides a Gaussian Process regression learner for mlr3 using 
+    GPyTorch via reticulate. Supports both CPU and GPU acceleration through 
+    PyTorch backend. Implements RBF and Matern kernels with automatic feature 
+    normalization.
 License: MIT + file LICENSE
 Depends:
     R (>= 3.6.0),
@@ -16,9 +19,16 @@ Imports:
     mlr3misc,
     paradox
 Suggests:
-    testthat (>= 3.0.0)
+    testthat (>= 3.0.0),
+    knitr,
+    rmarkdown,
+    pkgdown
 SystemRequirements: Python (>= 3.7), torch, gpytorch
 Encoding: UTF-8
 RoxygenNote: 7.3.3
 Roxygen: list(markdown = TRUE)
+VignetteBuilder: knitr
+URL: https://github.com/KhalifaSeck/mlr3learners.gpytorch, 
+    https://mlr3learners-gpytorch.netlify.app
+BugReports: https://github.com/KhalifaSeck/mlr3learners.gpytorch/issues
 

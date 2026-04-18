@@ -1,4 +1,5 @@
 # mlr3learners.gpytorch
+[![Codecov test coverage](https://codecov.io/gh/KhalifaSeck/mlr3learners.gpytorch/branch/master/graph/badge.svg)](https://app.codecov.io/gh/KhalifaSeck/mlr3learners.gpytorch?branch=master)
 
 Gaussian Process regression learner for mlr3 using GPyTorch with GPU acceleration support.
 

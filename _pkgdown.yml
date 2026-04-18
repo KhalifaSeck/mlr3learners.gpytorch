@@ -1,0 +1,31 @@
+url: https://mlr3learners-gpytorch.netlify.app
+
+template:
+  bootstrap: 5
+  bootswatch: cosmo
+
+navbar:
+  title: "mlr3learners.gpytorch"
+  left:
+    - text: "Home"
+      href: index.html
+    - text: "Reference"
+      href: reference/index.html
+    - text: "Articles"
+      href: articles/index.html
+  right:
+    - icon: fa-github
+      href: https://github.com/KhalifaSeck/mlr3learners.gpytorch
+
+reference:
+  - title: "Learner"
+    desc: "GPyTorch Gaussian Process learner for mlr3"
+    contents:
+      - LearnerRegrGPyTorch
+      - mlr_learners_regr.gpytorch
+
+articles:
+  - title: "Getting Started"
+    contents:
+      - benchmark
+
