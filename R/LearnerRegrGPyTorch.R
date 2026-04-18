@@ -24,8 +24,10 @@ LearnerRegrGPyTorch <- R6::R6Class("LearnerRegrGPyTorch",
       ps <- paradox::ps(
         kernel = paradox::p_fct(levels = c("rbf", "matern"), default = "rbf", tags = "train"),
         lr = paradox::p_dbl(lower = 0.001, upper = 1, default = 0.1, tags = "train"),
-        n_iter = paradox::p_int(lower = 10, upper = 500, default = 50, tags = "train")
+        n_iter = paradox::p_int(lower = 10, upper = 500, default = 50, tags = "train"),
+        device = paradox::p_fct(levels = c("auto", "cpu", "cuda"), default = "auto", tags = "train")
       )
+    
       
       super$initialize(
         id = "regr.gpytorch",
@@ -59,12 +61,14 @@ LearnerRegrGPyTorch <- R6::R6Class("LearnerRegrGPyTorch",
       n_iter <- pv$n_iter
       if (is.null(n_iter)) n_iter <- 50
       
-      model <- GPyTorchWrapper(kernel = kernel, lr = lr, n_iter = n_iter)
+      device <- pv$device
+      if (is.null(device)) device <- "auto"
+      
+      model <- GPyTorchWrapper(kernel = kernel, lr = lr, n_iter = n_iter, device = device)
       model$fit(X, y)
       
       return(model)
     },
-    
     .predict = function(task) {
       X_new <- as.matrix(task$data(cols = task$feature_names))
       
@@ -83,4 +87,5 @@ LearnerRegrGPyTorch <- R6::R6Class("LearnerRegrGPyTorch",
 )
 
 mlr3::mlr_learners$add("regr.gpytorch", LearnerRegrGPyTorch)
+
 

@@ -1,0 +1,11 @@
+task_id,learner_id,device,mean_mse
+airquality,knn,N/A,388.275987203121
+airquality,gpytorch_cuda,GPU,398.582432787271
+airquality,gpytorch_cpu,CPU,398.582443069436
+airquality,glmnet,N/A,575.858007531941
+airquality,featureless,N/A,1107.44765185417
+boston,gpytorch_cpu,CPU,9.68478001545197
+boston,gpytorch_cuda,GPU,9.6848193132339
+boston,knn,N/A,18.0243828673142
+boston,glmnet,N/A,27.7938733789347
+boston,featureless,N/A,84.6974210343806

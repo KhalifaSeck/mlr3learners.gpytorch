@@ -1,0 +1,5 @@
+Configuration,Device,MSE_Train,MSE_Test,Train_Time_sec,Improvement
+Default (RBF),cpu,3.4689,10.1018,0.3407,86.6%
+Matern,cpu,0.7422,10.0483,0.3499,86.7%
+RBF lr=0.05,cpu,3.5578,9.9208,0.3666,86.8%
+Baseline,N/A,88.4499,75.2778,,-

@@ -25,7 +25,26 @@ task_list <- list(
   boston = TaskRegr$new("boston", df_boston, target = "medv")
 )
 
-learner_gpytorch <- lrn("regr.gpytorch", n_iter = 50, id = "gpytorch")
+py_run_string("import torch")
+cuda_available <- py_eval("torch.cuda.is_available()")
+
+cat("CUDA available:", cuda_available, "\n\n")
+
+if (cuda_available) {
+  devices_to_test <- c("cpu", "cuda")
+} else {
+  devices_to_test <- c("cpu")
+  cat("GPU not available, using CPU only\n\n")
+}
+
+all_learners <- list()
+device_results <- list()
+
+for (dev in devices_to_test) {
+  learner_gpytorch <- lrn("regr.gpytorch", n_iter = 50, device = dev, id = paste0("gpytorch_", dev))
+  all_learners[[paste0("gpytorch_", dev)]] <- learner_gpytorch
+}
+
 learner_featureless <- lrn("regr.featureless", id = "featureless")
 learner_glmnet <- lrn("regr.cv_glmnet", id = "glmnet")
 
@@ -43,18 +62,15 @@ learner_knn <- auto_tuner(
 )
 learner_knn$id <- "knn"
 
-learner.list <- list(
-  gpytorch = learner_gpytorch,
-  featureless = learner_featureless,
-  glmnet = learner_glmnet,
-  knn = learner_knn
-)
+all_learners[["featureless"]] <- learner_featureless
+all_learners[["glmnet"]] <- learner_glmnet
+all_learners[["knn"]] <- learner_knn
 
 rsmp_cv <- rsmp("cv", folds = n_folds)
 
 bench.grid <- benchmark_grid(
   task_list,
-  learner.list,
+  all_learners,
   rsmp_cv
 )
 
@@ -72,6 +88,11 @@ if (is.null(bench.result)) {
 test_measure_list <- msrs("regr.mse")
 score_dt <- bench.result$score(test_measure_list)
 
+score_dt[, device := ifelse(grepl("_cpu$", learner_id), "CPU",
+                      ifelse(grepl("_cuda$", learner_id), "GPU", "N/A"))]
+
+score_dt[, learner_base := gsub("_cpu$|_cuda$", "", learner_id)]
+
 gg <- ggplot(score_dt, aes(x = regr.mse, y = learner_id)) +
   geom_point(size = 3, alpha = 0.7) +
   facet_grid(task_id ~ ., scales = "free_x") +
@@ -88,7 +109,7 @@ ggsave("benchmark_results.png", gg, width = 10, height = 6, dpi = 300)
 mean_err <- score_dt[
   ,
   .(mean_mse = mean(regr.mse)),
-  by = .(task_id, learner_id)
+  by = .(task_id, learner_id, device)
 ]
 
 mean_err <- mean_err[order(task_id, mean_mse)]
@@ -96,48 +117,61 @@ mean_err <- mean_err[order(task_id, mean_mse)]
 print(mean_err)
 
 for (dataset in unique(score_dt$task_id)) {
-  gpytorch_mse <- mean(score_dt[task_id == dataset & learner_id == "gpytorch", regr.mse])
-  featureless_mse <- mean(score_dt[task_id == dataset & learner_id == "featureless", regr.mse])
-  
-  improvement <- ((featureless_mse - gpytorch_mse) / featureless_mse) * 100
-  
-  cat(sprintf("Dataset: %s\n", dataset))
-  cat(sprintf("  GPyTorch MSE: %.4f\n", gpytorch_mse))
-  cat(sprintf("  Featureless MSE: %.4f\n", featureless_mse))
-  cat(sprintf("  Improvement: %.2f%%\n", improvement))
-  
-  if (improvement > 0) {
-    cat("  YES, GPyTorch learns non-trivial patterns\n\n")
-  } else {
-    cat("  No significant learning\n\n")
-  }
-}
-
-for (dataset in unique(score_dt$task_id)) {
   cat(sprintf("Dataset: %s\n", dataset))
   
   perf <- mean_err[task_id == dataset][order(mean_mse)]
   
   for (i in 1:nrow(perf)) {
-    cat(sprintf("  %d. %-15s MSE = %.4f\n", 
+    cat(sprintf("  %d. %-20s (%-3s) MSE = %.4f\n", 
                 i, 
-                perf$learner_id[i], 
+                perf$learner_id[i],
+                perf$device[i],
                 perf$mean_mse[i]))
   }
   
-  gpytorch_rank <- which(perf$learner_id == "gpytorch")
-  cat(sprintf("  GPyTorch ranks #%d out of %d\n\n", gpytorch_rank, nrow(perf)))
 }
 
-validate_hyperparameters <- function(task, seed = 123) {
+for (dataset in unique(score_dt$task_id)) {
+  gpytorch_results <- mean_err[task_id == dataset & grepl("gpytorch", learner_id)]
+  featureless_mse <- mean_err[task_id == dataset & learner_id == "featureless", mean_mse]
+  
+  cat(sprintf("Dataset: %s\n", dataset))
+  
+  for (i in 1:nrow(gpytorch_results)) {
+    gp_mse <- gpytorch_results$mean_mse[i]
+    improvement <- ((featureless_mse - gp_mse) / featureless_mse) * 100
+    
+    cat(sprintf("  %s (%s): %.4f MSE, %.2f%% improvement over baseline\n",
+                gpytorch_results$learner_id[i],
+                gpytorch_results$device[i],
+                gp_mse,
+                improvement))
+  }
+  
+}
+
+if (cuda_available) {
+  
+  for (dataset in unique(score_dt$task_id)) {
+    cpu_mse <- mean_err[task_id == dataset & learner_id == "gpytorch_cpu", mean_mse]
+    gpu_mse <- mean_err[task_id == dataset & learner_id == "gpytorch_cuda", mean_mse]
+    
+    cat(sprintf("Dataset: %s\n", dataset))
+    cat(sprintf("  CPU MSE: %.4f\n", cpu_mse))
+    cat(sprintf("  GPU MSE: %.4f\n", gpu_mse))
+    cat(sprintf("  Difference: %.4f\n\n", abs(cpu_mse - gpu_mse)))
+  }
+}
+
+validate_hyperparameters <- function(task, seed = 123, device = "auto") {
   set.seed(seed)
   train_idx <- sample(1:task$nrow, 0.7 * task$nrow)
   test_idx <- setdiff(1:task$nrow, train_idx)
   
   configs <- list(
-    list(name = "Default (RBF)", params = list()),
-    list(name = "Matern", params = list(kernel = "matern")),
-    list(name = "RBF lr=0.05", params = list(lr = 0.05))
+    list(name = "Default (RBF)", params = list(device = device)),
+    list(name = "Matern", params = list(kernel = "matern", device = device)),
+    list(name = "RBF lr=0.05", params = list(lr = 0.05, device = device))
   )
   
   results <- data.table()
@@ -149,13 +183,16 @@ validate_hyperparameters <- function(task, seed = 123) {
     }
     
     train_success <- tryCatch({
+      start_time <- Sys.time()
       suppressWarnings(learner$train(task, row_ids = train_idx))
-      TRUE
+      end_time <- Sys.time()
+      train_time <- as.numeric(difftime(end_time, start_time, units = "secs"))
+      list(success = TRUE, time = train_time)
     }, error = function(e) {
-      FALSE
+      list(success = FALSE, time = NA)
     })
     
-    if (!train_success) {
+    if (!train_success$success) {
       next
     }
     
@@ -167,8 +204,10 @@ validate_hyperparameters <- function(task, seed = 123) {
     
     results <- rbind(results, data.table(
       Configuration = config$name,
+      Device = device,
       MSE_Train = round(mse_train, 4),
-      MSE_Test = round(mse_test, 4)
+      MSE_Test = round(mse_test, 4),
+      Train_Time_sec = round(train_success$time, 4)
     ))
   }
   
@@ -182,8 +221,10 @@ validate_hyperparameters <- function(task, seed = 123) {
   
   results <- rbind(results, data.table(
     Configuration = "Baseline",
+    Device = "N/A",
     MSE_Train = round(mse_train_baseline, 4),
-    MSE_Test = round(mse_test_baseline, 4)
+    MSE_Test = round(mse_test_baseline, 4),
+    Train_Time_sec = NA
   ))
   
   if (nrow(results) > 1) {
@@ -197,14 +238,31 @@ validate_hyperparameters <- function(task, seed = 123) {
   return(results)
 }
 
-results_airquality <- validate_hyperparameters(task_list$airquality, seed = 123)
-print(results_airquality)
+validation_results <- list()
 
-results_boston <- validate_hyperparameters(task_list$boston, seed = 456)
-print(results_boston)
+for (dev in devices_to_test) {
+  cat(sprintf("\nDevice: %s\n", toupper(dev)))
+  results_airquality <- validate_hyperparameters(task_list$airquality, seed = 123, device = dev)
+  validation_results[[paste0("airquality_", dev)]] <- results_airquality
+  print(results_airquality)
+}
 
-score_dt_export <- score_dt[, .(task_id, learner_id, iteration, regr.mse)]
+
+for (dev in devices_to_test) {
+  cat(sprintf("\nDevice: %s\n", toupper(dev)))
+  results_boston <- validate_hyperparameters(task_list$boston, seed = 456, device = dev)
+  validation_results[[paste0("boston_", dev)]] <- results_boston
+  print(results_boston)
+}
+
+score_dt_export <- score_dt[, .(task_id, learner_id, device, iteration, regr.mse)]
 fwrite(score_dt_export, "benchmark_detailed_results.csv")
 fwrite(mean_err, "benchmark_summary.csv")
-fwrite(results_airquality, "validation_airquality.csv")
-fwrite(results_boston, "validation_boston.csv")
+
+for (name in names(validation_results)) {
+  fwrite(validation_results[[name]], paste0("validation_", name, ".csv"))
+}
+
+for (name in names(validation_results)) {
+  cat(sprintf("  validation_%s.csv\n", name))
+}

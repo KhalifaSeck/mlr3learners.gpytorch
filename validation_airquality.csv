@@ -1,5 +1,0 @@
-Configuration,MSE_Train,MSE_Test,Improvement
-Default (RBF),182.4311,376.5575,53.2%
-Matern,128.5991,366.9847,54.4%
-RBF lr=0.05,163.6828,377.9711,53.1%
-Baseline,1229.2626,805.0773,-

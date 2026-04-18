@@ -1,0 +1,5 @@
+Configuration,Device,MSE_Train,MSE_Test,Train_Time_sec,Improvement
+Default (RBF),cuda,229.3169,356.0557,0.4817,55.8%
+Matern,cuda,72.1626,363.9183,0.3102,54.8%
+RBF lr=0.05,cuda,163.683,377.971,0.3295,53.1%
+Baseline,N/A,1229.2626,805.0773,,-

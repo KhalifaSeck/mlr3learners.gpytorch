@@ -1,9 +1,0 @@
-task_id,learner_id,mean_mse
-airquality,gpytorch,398.58228313129
-airquality,knn,404.842113658259
-airquality,glmnet,563.163713611746
-airquality,featureless,1107.44765185417
-boston,gpytorch,9.684814797837
-boston,knn,18.288200204279
-boston,glmnet,28.2880955333293
-boston,featureless,84.6974210343806
