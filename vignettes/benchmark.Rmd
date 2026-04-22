@@ -19,42 +19,47 @@ Gaussian Process regression learner for mlr3 using GPyTorch with GPU acceleratio
 
 ## Installation
 
+### Complete Installation (Recommended)
+
 ```{r installation}
+# Step 1: Install R package
 remotes::install_github("KhalifaSeck/mlr3learners.gpytorch")
+
+# Step 2: Install miniconda (one-time only)
+if(!reticulate::miniconda_exists()) {
+  reticulate::install_miniconda()
+}
+
+# Step 3: Create Python environment (one-time only)
+if(!reticulate::conda_exists("gpytorch")) {
+  reticulate::conda_create("gpytorch")
+  reticulate::conda_install("gpytorch", c("pytorch", "gpytorch"))
+}
+
+# Step 4: Configure Python path
+Sys.setenv(RETICULATE_PYTHON="~/AppData/Local/r-miniconda/envs/gpytorch/python.exe")  # Windows
+# Sys.setenv(RETICULATE_PYTHON="~/miniconda3/envs/gpytorch/bin/python")  # Linux/Mac
+
+# Step 5: Activate environment
+reticulate::use_condaenv("gpytorch", required = TRUE)
 ```
 
-## Requirements
+### Verify Installation
 
-### R Packages
-- mlr3 (>= 0.20.0)
-- reticulate
-- R6
-- paradox
+```{r verify}
+library(mlr3)
+library(mlr3learners.gpytorch)
 
-### Python Dependencies
-- Python (>= 3.7)
-- PyTorch (with CUDA support for GPU acceleration)
-- GPyTorch
-
-### Installing Python Dependencies
-
-#### CPU-only installation
-```bash
-conda create -n gpytorch python=3.10
-conda activate gpytorch
-conda install pytorch -c pytorch
-pip install gpytorch
-```
-
-#### GPU installation (requires NVIDIA CUDA)
-```bash
-conda create -n gpytorch python=3.10
-conda activate gpytorch
-pip install torch torchvision torchaudio --index-url https://download.pytorch.org/whl/cu118
-pip install gpytorch
+task <- mlr3::tsk("mtcars")
+learner <- mlr3::lrn("regr.gpytorch", n_iter = 50)
+learner$train(task)
+pred <- learner$predict(task)
+print(pred)
 ```
 
 ## Usage
+
+### Basic Example
 
 ```{r usage}
 library(mlr3)
@@ -76,7 +81,7 @@ print(pred)
 ```{r gpu_usage}
 learner_gpu <- lrn("regr.gpytorch", n_iter = 50, device = "cuda")
 learner_cpu <- lrn("regr.gpytorch", n_iter = 50, device = "cpu")
-learner_auto <- lrn("regr.gpytorch", n_iter = 50, device = "auto")
+learner_auto <- lrn("regr.gpytorch", n_iter = 50, device = "auto")  # Auto-detects GPU
 ```
 
 ## Hyperparameters
@@ -92,180 +97,121 @@ learner_auto <- lrn("regr.gpytorch", n_iter = 50, device = "auto")
 
 Performance evaluated using Mean Squared Error (MSE) in 5-fold cross-validation.
 
-### Overall Performance
+### Benchmark Code
 
-| Dataset | GPyTorch (GPU) | GPyTorch (CPU) | KNN | CV-Glmnet | Featureless |
-|---------|----------------|----------------|-----|-----------|-------------|
-| airquality | 398.58 | 398.58 | 388.28 | 575.86 | 1107.45 |
-| boston | 9.68 | 9.68 | 18.02 | 27.79 | 84.70 |
+```{r benchmark_code}
+library(mlr3verse)
+library(ggplot2)
 
-Lower MSE values indicate better performance.
+# Setup
+use_condaenv("gpytorch")
+
+# Tasks
+task_air = as_task_regr(na.omit(airquality), target = "Ozone", id = "airquality")
+task_boston = as_task_regr(MASS::Boston, target = "medv", id = "boston")
+
+# Learners
+learners = list(
+  lrn("regr.gpytorch", n_iter = 50),
+  lrn("regr.kknn"),
+  lrn("regr.cv_glmnet"),
+  lrn("regr.featureless")
+)
+
+# Benchmark
+design = benchmark_grid(
+  tasks = list(task_air, task_boston),
+  learners = learners,
+  resamplings = rsmp("cv", folds = 5)
+)
+
+bmr = benchmark(design)
+results = bmr$aggregate(msr("regr.mse"))
+print(results)
+
+# Plot
+ggplot(bmr$score(msr("regr.mse")), aes(x = regr.mse, y = learner_id)) +
+  geom_point(size = 3, alpha = 0.7) +
+  facet_grid(task_id ~ ., scales = "free_x") +
+  labs(x = "Mean Squared Error (MSE)", y = "Algorithm",
+       title = "Prediction Error in 5-Fold Cross-Validation") +
+  theme_bw()
+```
+
+### Results
+
+| Dataset | GPyTorch | KNN | CV-Glmnet | Featureless |
+|---------|----------|-----|-----------|-------------|
+| airquality | 398.58 | 388.28 | 575.86 | 1107.45 |
+| boston | **9.68** | 18.02 | 27.79 | 84.70 |
+
+Lower MSE indicates better performance. GPyTorch ranks #1 on boston dataset.
 
 ### Algorithm Rankings
 
 **airquality dataset (111 observations)**
 
 1. KNN: 388.28 MSE
-2. GPyTorch (CPU/GPU): 398.58 MSE
+2. GPyTorch: 398.58 MSE
 3. CV-Glmnet: 575.86 MSE
 4. Featureless: 1107.45 MSE
 
 **boston dataset (506 observations)**
 
-1. GPyTorch (CPU/GPU): 9.68 MSE
+1. **GPyTorch: 9.68 MSE** 
 2. KNN: 18.02 MSE
 3. CV-Glmnet: 27.79 MSE
 4. Featureless: 84.70 MSE
 
 ### Analysis
 
-**Question 1: Does GPyTorch learn non-trivial patterns?**
+**Does GPyTorch learn non-trivial patterns?**
 
-- airquality: 64.01% improvement over featureless baseline
-- boston: 88.57% improvement over featureless baseline
+- airquality: 64% improvement over featureless baseline
+- boston: 89% improvement over featureless baseline
 
-Yes, GPyTorch successfully learns non-trivial patterns on both datasets.
+ Yes, GPyTorch successfully learns non-trivial patterns on both datasets.
 
-**Question 2: Is GPyTorch competitive with other algorithms?**
+**Is GPyTorch competitive with other algorithms?**
 
-- Achieves rank 1 on boston dataset
-- Achieves rank 2 on airquality dataset
-- Outperforms linear models (CV-Glmnet) on both datasets
-- Highly competitive with KNN
+- Ranks #1 on boston dataset
+- Ranks #2 on airquality dataset
+- Outperforms linear models on both datasets
+- Competitive with KNN
 
-GPyTorch demonstrates excellent performance, particularly on the larger boston dataset.
+ GPyTorch demonstrates excellent performance, particularly on larger datasets.
 
 ## GPU vs CPU Performance
 
-Performance comparison conducted on NVIDIA GeForce RTX 3050 Laptop GPU.
+Performance comparison on NVIDIA GeForce RTX 3050 Laptop GPU.
 
 ### Prediction Accuracy
 
-GPU and CPU produce identical prediction accuracy (MSE):
+GPU and CPU produce identical predictions:
 
 - airquality: 398.58 (GPU) = 398.58 (CPU)
 - boston: 9.68 (GPU) = 9.68 (CPU)
 
-This confirms correct implementation across both hardware backends.
+ Confirms correct implementation across both backends.
 
-### Training Time Comparison (30 iterations)
+### Training Time (30 iterations)
 
-**airquality dataset (111 observations)**
+**airquality (111 obs):** CPU 2.5x faster (GPU overhead dominates)  
+**boston (506 obs):** GPU 1.3x faster (computation outweighs overhead)
 
-| Configuration | CPU Time (sec) | GPU Time (sec) | Speedup |
-|---------------|----------------|----------------|---------|
-| Default (RBF) | 0.1931 | 0.4817 | CPU 2.5x faster |
-| Matern | 0.2445 | 0.3102 | CPU 1.3x faster |
-| RBF lr=0.05 | 0.2037 | 0.3295 | CPU 1.6x faster |
-
-**boston dataset (506 observations)**
-
-| Configuration | CPU Time (sec) | GPU Time (sec) | Speedup |
-|---------------|----------------|----------------|---------|
-| Default (RBF) | 0.3407 | 0.3333 | GPU 1.02x faster |
-| Matern | 0.3499 | 0.3012 | GPU 1.16x faster |
-| RBF lr=0.05 | 0.3666 | 0.2763 | GPU 1.33x faster |
-
-### Performance Insights
-
-**Small datasets (fewer than 200 observations):**
-CPU is faster due to GPU memory transfer overhead. The time required to transfer data between CPU and GPU memory exceeds the computational speedup.
-
-**Medium datasets (500-1000 observations):**
-GPU begins to show advantages as computational workload increases relative to transfer overhead.
-
-**Large datasets (1000+ observations):**
-GPU provides significant speedup (expected 2-10x) as computational benefits outweigh transfer costs.
-
-**Recommendation:**
-Use CPU for small datasets and prototyping. Use GPU for production workloads with large datasets or when training many models.
-
-### Understanding GPU Overhead
-
-On the airquality dataset (111 observations), CPU is approximately 2x faster than GPU due to memory transfer overhead between CPU and GPU (approximately 0.2 seconds) exceeding the computational gain.
-
-On the boston dataset (506 observations), GPU begins to demonstrate advantages with a 1.3x speedup, as computation time becomes more significant than transfer overhead.
-
-For larger datasets (1000+ observations), GPU would be significantly faster (2-10x speedup expected) because computational cost dominates the fixed memory transfer overhead.
-
-This observation is consistent with GPU computing literature: GPUs excel at large-scale intensive computations, while CPUs remain competitive for smaller tasks where data transfer overhead is non-negligible.
-
-## Hyperparameter Validation
-
-Results from 70% train / 30% test split evaluation.
-
-### airquality dataset
-
-| Configuration | Device | MSE Train | MSE Test | Improvement vs Baseline |
-|---------------|--------|-----------|----------|-------------------------|
-| Default (RBF) | CPU | 229.32 | 356.06 | 55.8% |
-| Default (RBF) | GPU | 229.32 | 356.06 | 55.8% |
-| Matern | CPU | 72.16 | 363.92 | 54.8% |
-| Matern | GPU | 72.16 | 363.92 | 54.8% |
-| RBF lr=0.05 | CPU | 163.68 | 377.97 | 53.1% |
-| RBF lr=0.05 | GPU | 163.68 | 377.97 | 53.1% |
-| Featureless | N/A | 1229.26 | 805.08 | - |
-
-### boston dataset
-
-| Configuration | Device | MSE Train | MSE Test | Improvement vs Baseline |
-|---------------|--------|-----------|----------|-------------------------|
-| Default (RBF) | CPU | 3.47 | 10.10 | 86.6% |
-| Default (RBF) | GPU | 3.47 | 10.10 | 86.6% |
-| Matern | CPU | 0.74 | 10.05 | 86.7% |
-| Matern | GPU | 0.74 | 10.05 | 86.7% |
-| RBF lr=0.05 | CPU | 3.56 | 9.92 | 86.8% |
-| RBF lr=0.05 | GPU | 3.56 | 9.92 | 86.8% |
-| Featureless | N/A | 88.45 | 75.28 | - |
-
-### Key Observations
-
-- Train MSE consistently lower than test MSE indicates proper normalization and absence of overfitting
-- GPU and CPU produce numerically identical predictions across all configurations
-- Consistent 50-86% improvement over baseline across all hyperparameter settings
-- Different kernels and learning rates provide tuning flexibility
+**Recommendation:** Use CPU for small datasets (<200 obs), GPU for large datasets (>1000 obs).
 
 ## Technical Features
 
-**Hardware Support:**
-
-- Automatic GPU/CPU detection via device="auto"
-- Explicit device control via device="cpu" or device="cuda"
-- Graceful fallback to CPU when GPU unavailable
-
-**Numerical Methods:**
-
-- Automatic feature normalization to zero mean and unit variance
-- Gaussian likelihood with proper variance handling
-- Numerical stability through appropriate scaling
-
-**Kernel Options:**
-
-- RBF (Radial Basis Function) kernel for smooth functions
-- Matern kernel for functions with controlled smoothness
-- Configurable via kernel hyperparameter
+- **GPU/CPU support**: Automatic device detection or manual selection
+- **Feature normalization**: Automatic zero mean, unit variance scaling
+- **Kernel options**: RBF and Matérn kernels
+- **Numerical stability**: Proper variance handling
 
 ## System Requirements
 
-**For CPU-only usage:**
-
-- Modern multi-core CPU
-- 4GB RAM minimum
-
-**For GPU acceleration:**
-
-- NVIDIA GPU with CUDA support
-- CUDA Toolkit 11.8 or 12.x
-- 4GB GPU memory recommended
-- cuDNN library (installed with PyTorch)
-
-## Related Work
-
-- [Course Wiki](https://github.com/tdhock/2026-01-aa-grande-echelle/wiki/projets)
-- [GPyTorch Documentation](https://gpytorch.ai/)
-- [mlr3 Framework](https://mlr3.mlr-org.com/)
-- [PyTorch](https://pytorch.org/)
-- [mlr3extralearners](https://github.com/mlr-org/mlr3extralearners)
+**CPU:** Modern multi-core CPU, 4GB RAM  
+**GPU:** NVIDIA GPU with CUDA 11.8+, 4GB GPU memory
 
 ## Citation
 
@@ -280,9 +226,7 @@ Results from 70% train / 30% test split evaluation.
 
 ## Author
 
-Khalifa Seck
-
-GitHub: [KhalifaSeck](https://github.com/KhalifaSeck)
+Khalifa Seck - [GitHub](https://github.com/KhalifaSeck)
 
 ## License
 
