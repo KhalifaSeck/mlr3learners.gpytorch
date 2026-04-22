@@ -168,9 +168,13 @@ GPU and CPU produce identical predictions:
 
 ## Related Work
 
-- [Pull Request to mlr3extralearners](https://github.com/mlr-org/mlr3extralearners/pull/YOUR-PR-NUMBER)
+- [Course Wiki](https://github.com/tdhock/2026-01-aa-grande-echelle/wiki/projets)
+- [mlr3 Framework](https://mlr3.mlr-org.com/)
+- [mlr3extralearners](https://github.com/mlr-org/mlr3extralearners)
 - [GPyTorch Documentation](https://gpytorch.ai/)
-- [mlr3 Book](https://mlr3book.mlr-org.com/)
+- [PyTorch](https://pytorch.org/)
+
+
 
 ## Author
 
